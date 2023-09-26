@@ -1,0 +1,97 @@
+apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
+kind: Deployment
+metadata:
+  name: fs-{{ .Values.tenant.identifier }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: fs-{{ .Values.tenant.identifier }}
+spec:
+  selector:
+    matchLabels:
+      app: fs-{{ .Values.tenant.identifier }}
+      tier: backend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: fs-{{ .Values.tenant.identifier }}
+        tier: backend
+    spec:
+      initContainers:
+        - name: check-{{ .Values.tenant.identifier }}-db
+          image: busybox:1.28
+          command:
+            [
+              "sh",
+              "-c",
+              'echo -e "Checking for availability of MySQL server deployment"; while ! nc -z {{ include "database.host" . }} {{ include "database.port" . }}; do sleep 1; printf "-"; done; echo -e " >> MySQL server has started";',
+            ]
+        - name: init-{{ .Values.tenant.identifier }}-db
+          image: litmuschaos/mysql-client:latest
+          command:
+            [
+              "sh",
+              "-c",
+              'mysql -u root -e "CREATE DATABASE IF NOT EXISTS {{ include `tenant.databaseName` . }}; GRANT ALL PRIVILEGES ON {{ include `tenant.databaseName` . }}.* TO {{ include `database.username` . }}@`%`; FLUSH PRIVILEGES;"',
+            ]
+          env:
+            - name: MYSQL_HOST
+              value: {{ include "database.host" . | quote }}
+            - name: MYSQL_TCP_PORT
+              value: {{ include "database.port" . | quote }}
+            - name: MYSQL_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "database.secretName" . }}
+                  key: {{ include "database.secretKeyRoot" . }}
+      containers:
+        - name: fs-{{ .Values.tenant.identifier }}
+          image: truehostcloud/mifos-server
+          resources:
+            limits:
+              cpu: "1000m"
+              memory: "1Gi"
+            requests:
+              cpu: "200m"
+              memory: "0.5Gi"
+          ports:
+            - containerPort: 8443
+              name: fs-{{ .Values.tenant.identifier }}
+          env:
+            - name: FINERACT_NODE_ID
+              value: "1"
+            - name: FINERACT_HIKARI_DRIVER_CLASS_NAME
+              value: {{ include "hikari.jdbcDriver" . | quote }}
+            - name: FINERACT_HIKARI_JDBC_URL
+              value: {{ include "hikari.jdbcUrl" . | quote }}
+            - name: FINERACT_HIKARI_USERNAME
+              value: {{ include "database.username" . | quote }}
+            - name: FINERACT_HIKARI_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "database.secretName" . }}
+                  key: {{ include "database.secretKey" . }}
+            - name: FINERACT_DEFAULT_TENANTDB_HOSTNAME
+              value: {{ include "database.host" . | quote }}
+            - name: FINERACT_DEFAULT_TENANTDB_PORT
+              value: {{ include "database.port" . | quote }}
+            - name: FINERACT_DEFAULT_TENANTDB_UID
+              value: {{ include "database.username" . | quote }}
+            - name: FINERACT_DEFAULT_TENANTDB_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "database.secretName" . }}
+                  key: {{ include "database.secretKey" . }}
+            - name: FINERACT_DEFAULT_TENANTDB_CONN_PARAMS
+              value: {{ .Values.tenant.connectionParams }}
+            - name: FINERACT_DEFAULT_TENANTDB_TIMEZONE
+              value: {{ .Values.tenant.timezone }}
+            - name: FINERACT_DEFAULT_TENANTDB_IDENTIFIER
+              value: {{ .Values.tenant.identifier }}
+            - name: FINERACT_DEFAULT_TENANTDB_NAME
+              value: {{ include "tenant.databaseName" . }}
+            - name: FINERACT_DEFAULT_TENANTDB_DESCRIPTION
+              value: {{ .Values.tenant.name }}
+            - name: JAVA_TOOL_OPTIONS
+              value: '-Xmx1G'

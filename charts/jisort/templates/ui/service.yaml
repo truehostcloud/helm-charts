@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fw-{{ .Values.tenant.identifier }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: fw-{{ .Values.tenant.identifier }}
+spec:
+  type: ClusterIP
+  selector:
+    app: fw-{{ .Values.tenant.identifier }}
+    tier: frontend
+  ports:
+    - protocol: TCP
+      port: 9090
+      targetPort: 80

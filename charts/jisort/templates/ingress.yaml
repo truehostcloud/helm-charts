@@ -1,0 +1,26 @@
+apiVersion: {{ include "common.capabilities.ingress.apiVersion" . }}
+kind: Ingress
+metadata:
+  name: fs-{{ .Values.tenant.identifier }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: fs-{{ .Values.tenant.identifier }}
+spec:
+  rules:
+    - host: {{ tpl .Values.ingress.hostname $ | quote }}
+      http:
+        paths:
+          - path: /fineract-provider
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fs-{{ .Values.tenant.identifier }}
+                port:
+                  number: 8443
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fw-{{ .Values.tenant.identifier }}
+                port:
+                  number: 80

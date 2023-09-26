@@ -1,0 +1,34 @@
+## MySQL chart configuration
+## ref: https://github.com/bitnami/charts/blob/main/bitnami/mysql/values.yaml
+##
+mysql:
+  ## MySQL Authentication parameters
+  auth:
+    ## @param mysql.auth.rootPassword MySQL root password
+    ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mysql#setting-the-root-password-on-first-run
+    rootPassword: ""
+    ## @param mysql.auth.database MySQL custom database
+    ## ref: https://github.com/bitnami/containers/blob/main/bitnami/mysql/README.md#creating-a-database-on-first-run
+    database: fineract_tenants
+    ## @param mysql.auth.username MySQL custom user name
+    ## ref: https://github.com/bitnami/containers/blob/main/bitnami/mysql/README.md#creating-a-database-user-on-first-run
+    username: fineract
+    ## @param mysql.auth.password MySQL custom user password
+    password: ""
+
+## Tenant configuration
+##
+tenant:
+  ## @param tenant.connectionParams Tenant connection parameters
+  connectionParams: ""
+  ## @param tenant.identifier Tenant identifier
+  identifier: "default"
+  ## @param tenant.name Tenant name
+  name: "Default Tenant"
+  ## @param tenant.timezone Tenant timezone
+  timezone: "Africa/Nairobi"
+
+## Ingress configuration
+##
+ingress:
+  hostname: ""

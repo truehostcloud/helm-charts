@@ -1,0 +1,54 @@
+apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
+kind: Deployment
+metadata:
+  name: fw-{{ .Values.tenant.identifier }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: fw-{{ .Values.tenant.identifier }}
+spec:
+  selector:
+    matchLabels:
+      app: fw-{{ .Values.tenant.identifier }}
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: fw-{{ .Values.tenant.identifier }}
+        tier: frontend
+    spec:
+      initContainers:
+        - name: check-{{ .Values.tenant.identifier }}-server
+          image: busybox:1.28
+          command:
+            [
+              "sh",
+              "-c",
+              'echo -e "Checking the availability of Fineract server deployment"; while ! nc -z fs-{{ .Values.tenant.identifier }} 8443; do sleep 1; printf "-"; done; echo -e " >> Fineract server has started";',
+            ]
+      containers:
+        - name: fw-{{ .Values.tenant.identifier }}
+          image: truehostcloud/mifos-community
+          resources:
+            limits:
+              cpu: "1000m"
+              memory: "1Gi"
+            requests:
+              cpu: "200m"
+              memory: "0.5Gi"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 90
+            periodSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 90
+            periodSeconds: 1
+          ports:
+            - containerPort: 80
+              name: fw-{{ .Values.tenant.identifier }}

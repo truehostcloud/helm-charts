@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - jisort
 
 jobs:
   release:

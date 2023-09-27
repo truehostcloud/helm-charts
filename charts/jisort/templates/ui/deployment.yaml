@@ -30,13 +30,7 @@ spec:
       containers:
         - name: fw-{{ .Values.tenant.identifier }}
           image: truehostcloud/mifos-community
-          resources:
-            limits:
-              cpu: "1000m"
-              memory: "1Gi"
-            requests:
-              cpu: "200m"
-              memory: "0.5Gi"
+          resources: {{- toYaml .Values.client.resources | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /

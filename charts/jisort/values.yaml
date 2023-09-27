@@ -15,6 +15,19 @@ mysql:
     username: fineract
     ## @param mysql.auth.password MySQL custom user password
     password: ""
+  ## MySQL primary container's resource requests and limits
+  ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
+  ## We usually recommend not to specify default resources and to leave this as a conscious
+  ## choice for the user. This also increases chances charts run on environments with little
+  ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+  ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  ## @param primary.resources.limits The resources limits for MySQL primary containers
+  ## @param primary.resources.requests The requested resources for MySQL primary containers
+  ##
+  primary:
+    resources:
+      limits: {}
+      requests: {}
 
 ## Tenant configuration
 ##
@@ -32,3 +45,15 @@ tenant:
 ##
 ingress:
   hostname: ""
+
+## Server resource requests and limits
+server:
+  resources:
+    limits: {}
+    requests: {}
+
+## Client resource requests and limits
+client:
+  resources:
+    limits: {}
+    requests: {}

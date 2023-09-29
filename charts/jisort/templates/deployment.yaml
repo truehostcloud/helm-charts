@@ -31,7 +31,7 @@ spec:
             [
               "sh",
               "-c",
-              'mysql -u root -e "CREATE DATABASE IF NOT EXISTS {{ include `tenant.databaseName` . }}; GRANT ALL PRIVILEGES ON {{ include `tenant.databaseName` . }}.* TO \'{{ include `database.username` . }}\'@\'%\'; FLUSH PRIVILEGES;"',
+              'mysql -u root -e "CREATE DATABASE IF NOT EXISTS {{ include `tenant.databaseName` . }}; GRANT ALL PRIVILEGES ON {{ include `tenant.databaseName` . }}.* TO ''{{ include `database.username` . }}''@''%''; FLUSH PRIVILEGES;"',
             ]
           env:
             - name: MYSQL_HOST

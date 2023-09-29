@@ -1,21 +1,19 @@
 apiVersion: {{ include "common.capabilities.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
-  name: {{ include "common.names.fullname" . }}-server
+  name: {{ include "common.names.fullname" . }}-web
   namespace: {{ .Release.Namespace | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: server
-  annotations:
-    nginx.ingress.kubernetes.io/backend-protocol: {{ include "server.protocol" . }}
+    app.kubernetes.io/component: web
 spec:
   rules:
     - host: {{ tpl .Values.ingress.hostname $ | quote }}
       http:
         paths:
-          - path: /fineract-provider
+          - path: /
             pathType: ImplementationSpecific
             backend:
               service:
-                name: {{ include "common.names.fullname" . }}-server
+                name: {{ include "common.names.fullname" . }}-web
                 port:
-                  number: {{ .Values.server.port }}
+                  number: 80

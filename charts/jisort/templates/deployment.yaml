@@ -48,7 +48,7 @@ spec:
           image: truehostcloud/mifos-server
           resources: {{- toYaml .Values.server.resources | nindent 12 }}
           ports:
-            - containerPort: 8443
+            - containerPort: {{ .Values.server.port }}
               name: server
           env:
             - name: FINERACT_NODE_ID
@@ -77,6 +77,10 @@ spec:
                   key: {{ include "database.secretKey" . }}
             - name: FINERACT_DEFAULT_TENANTDB_CONN_PARAMS
               value: {{ .Values.tenant.connectionParams }}
+            - name: FINERACT_SERVER_SSL_ENABLED
+              value: {{ .Values.server.ssl.enabled }}
+            - name: FINERACT_SERVER_PORT
+              value: {{ .Values.server.port }}
             - name: FINERACT_DEFAULT_TENANTDB_TIMEZONE
               value: {{ .Values.tenant.timezone }}
             - name: FINERACT_DEFAULT_TENANTDB_IDENTIFIER
@@ -90,15 +94,15 @@ spec:
           startupProbe:
             httpGet:
               path: /fineract-provider/actuator/health/liveness
-              port: 8443
-              scheme: HTTPS
-            failureThreshold: 30
+              port: {{ .Values.server.port }}
+              scheme: {{ include "server.probeScheme" . }}
+            failureThreshold: 60
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /fineract-provider/actuator/health/liveness
-              port: 8443
-              scheme: HTTPS
+              port: {{ .Values.server.port }}
+              scheme: {{ include "server.probeScheme" . }}
             initialDelaySeconds: 5
             timeoutSeconds: 5
             periodSeconds: 10
@@ -107,8 +111,8 @@ spec:
           readinessProbe:
             httpGet:
               path: /fineract-provider/actuator/health/liveness
-              port: 8443
-              scheme: HTTPS
+              port: {{ .Values.server.port }}
+              scheme: {{ include "server.probeScheme" . }}
             initialDelaySeconds: 5
             timeoutSeconds: 5
             periodSeconds: 10

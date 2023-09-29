@@ -68,3 +68,11 @@ Return Tenant Database Name
 {{- define "tenant.databaseName" -}}
 {{- printf "fineract_%s" .Values.tenant.identifier -}}
 {{- end -}}
+{{- define "server.probeScheme" -}}
+{{- if .Values.server.ssl.enabled -}}
+{{- printf "HTTPS" -}}
+{{- else -}}
+{{- printf "HTTP" -}}
+{{- end -}}
+{{- end -}}
+

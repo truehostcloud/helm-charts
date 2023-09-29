@@ -78,7 +78,7 @@ spec:
             - name: FINERACT_DEFAULT_TENANTDB_CONN_PARAMS
               value: {{ .Values.tenant.connectionParams }}
             - name: FINERACT_SERVER_SSL_ENABLED
-              value: {{ .Values.server.ssl.enabled }}
+              value: {{ .Values.server.ssl.enabled | quote }}
             - name: FINERACT_SERVER_PORT
               value: {{ .Values.server.port }}
             - name: FINERACT_DEFAULT_TENANTDB_TIMEZONE

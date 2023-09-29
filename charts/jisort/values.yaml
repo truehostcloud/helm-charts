@@ -1,0 +1,62 @@
+## MySQL chart configuration
+## ref: https://github.com/bitnami/charts/blob/main/bitnami/mysql/values.yaml
+##
+mysql:
+  ## MySQL Authentication parameters
+  auth:
+    ## @param mysql.auth.rootPassword MySQL root password
+    ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mysql#setting-the-root-password-on-first-run
+    rootPassword: ""
+    ## @param mysql.auth.database MySQL custom database
+    ## ref: https://github.com/bitnami/containers/blob/main/bitnami/mysql/README.md#creating-a-database-on-first-run
+    database: fineract_tenants
+    ## @param mysql.auth.username MySQL custom user name
+    ## ref: https://github.com/bitnami/containers/blob/main/bitnami/mysql/README.md#creating-a-database-user-on-first-run
+    username: fineract
+    ## @param mysql.auth.password MySQL custom user password
+    password: ""
+  ## MySQL primary container's resource requests and limits
+  ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
+  ## We usually recommend not to specify default resources and to leave this as a conscious
+  ## choice for the user. This also increases chances charts run on environments with little
+  ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+  ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  ## @param primary.resources.limits The resources limits for MySQL primary containers
+  ## @param primary.resources.requests The requested resources for MySQL primary containers
+  ##
+  primary:
+    resources:
+      limits: {}
+      requests: {}
+
+## Tenant configuration
+##
+tenant:
+  ## @param tenant.connectionParams Tenant connection parameters
+  connectionParams: ""
+  ## @param tenant.identifier Tenant identifier
+  identifier: "default"
+  ## @param tenant.name Tenant name
+  name: "Default Tenant"
+  ## @param tenant.timezone Tenant timezone
+  timezone: "Africa/Nairobi"
+
+## Ingress configuration
+##
+ingress:
+  hostname: ""
+
+## Server resource requests and limits
+server:
+  ssl:
+    enabled: false
+  port: 8080
+  resources:
+    limits: {}
+    requests: {}
+
+## Client resource requests and limits
+client:
+  resources:
+    limits: {}
+    requests: {}

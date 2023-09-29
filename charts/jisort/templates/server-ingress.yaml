@@ -6,7 +6,7 @@ metadata:
   labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: server
   annotations:
-    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/backend-protocol: {{ include "server.protocol" . }}
 spec:
   rules:
     - host: {{ tpl .Values.ingress.hostname $ | quote }}
@@ -18,4 +18,4 @@ spec:
               service:
                 name: {{ include "common.names.fullname" . }}-server
                 port:
-                  number: 8443
+                  number: {{ .Values.server.port }}

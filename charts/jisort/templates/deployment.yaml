@@ -95,14 +95,14 @@ spec:
             httpGet:
               path: /fineract-provider/actuator/health/liveness
               port: {{ .Values.server.port }}
-              scheme: {{ include "server.probeScheme" . }}
+              scheme: {{ include "server.protocol" . }}
             failureThreshold: 60
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /fineract-provider/actuator/health/liveness
               port: {{ .Values.server.port }}
-              scheme: {{ include "server.probeScheme" . }}
+              scheme: {{ include "server.protocol" . }}
             initialDelaySeconds: 5
             timeoutSeconds: 5
             periodSeconds: 10
@@ -112,7 +112,7 @@ spec:
             httpGet:
               path: /fineract-provider/actuator/health/liveness
               port: {{ .Values.server.port }}
-              scheme: {{ include "server.probeScheme" . }}
+              scheme: {{ include "server.protocol" . }}
             initialDelaySeconds: 5
             timeoutSeconds: 5
             periodSeconds: 10

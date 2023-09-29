@@ -80,7 +80,7 @@ spec:
             - name: FINERACT_SERVER_SSL_ENABLED
               value: {{ .Values.server.ssl.enabled | quote }}
             - name: FINERACT_SERVER_PORT
-              value: {{ .Values.server.port }}
+              value: {{ .Values.server.port | quote }}
             - name: FINERACT_DEFAULT_TENANTDB_TIMEZONE
               value: {{ .Values.tenant.timezone }}
             - name: FINERACT_DEFAULT_TENANTDB_IDENTIFIER

@@ -1,22 +1,20 @@
 apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
 kind: Deployment
 metadata:
-  name: fw-{{ .Values.tenant.identifier }}
+  name: {{ include "common.names.fullname" . }}-web
   namespace: {{ .Release.Namespace | quote }}
-  labels:
-    app: fw-{{ .Values.tenant.identifier }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: web
 spec:
   selector:
-    matchLabels:
-      app: fw-{{ .Values.tenant.identifier }}
-      tier: frontend
+    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: web
   strategy:
     type: Recreate
   template:
     metadata:
-      labels:
-        app: fw-{{ .Values.tenant.identifier }}
-        tier: frontend
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        app.kubernetes.io/component: web
     spec:
       initContainers:
         - name: check-{{ .Values.tenant.identifier }}-server
@@ -45,4 +43,4 @@ spec:
             periodSeconds: 1
           ports:
             - containerPort: 80
-              name: fw-{{ .Values.tenant.identifier }}
+              name: web

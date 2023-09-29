@@ -90,14 +90,15 @@ spec:
           startupProbe:
             httpGet:
               path: /fineract-provider/actuator/health/liveness
-              port: 8080
+              port: 8443
+              scheme: HTTPS
             failureThreshold: 30
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /fineract-provider/actuator/health/liveness
-              port: 8080
-              scheme: HTTP
+              port: 8443
+              scheme: HTTPS
             initialDelaySeconds: 5
             timeoutSeconds: 5
             periodSeconds: 10
@@ -106,8 +107,8 @@ spec:
           readinessProbe:
             httpGet:
               path: /fineract-provider/actuator/health/liveness
-              port: 8080
-              scheme: HTTP
+              port: 8443
+              scheme: HTTPS
             initialDelaySeconds: 5
             timeoutSeconds: 5
             periodSeconds: 10

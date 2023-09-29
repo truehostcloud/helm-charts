@@ -23,7 +23,7 @@ spec:
             [
               "sh",
               "-c",
-              'echo -e "Checking the availability of Fineract server deployment"; while ! nc -z fs-{{ .Values.tenant.identifier }} 8443; do sleep 1; printf "-"; done; echo -e " >> Fineract server has started";',
+              'echo -e "Checking the availability of Fineract server deployment"; while ! nc -z {{ include "common.names.fullname" . }}-server 8443; do sleep 1; printf "-"; done; echo -e " >> Fineract server has started";',
             ]
       containers:
         - name: fw-{{ .Values.tenant.identifier }}

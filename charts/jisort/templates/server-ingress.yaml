@@ -16,6 +16,6 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: fs-{{ .Values.tenant.identifier }}
+                name: {{ include "common.names.fullname" . }}-server
                 port:
                   number: 8443

@@ -31,7 +31,7 @@ spec:
             [
               "sh",
               "-c",
-              'mysql -u root -e "CREATE DATABASE IF NOT EXISTS {{ include `tenant.databaseName` . }}; GRANT ALL PRIVILEGES ON {{ include `tenant.databaseName` . }}.* TO {{ include `database.username` . }}@`%`; FLUSH PRIVILEGES;"',
+              'mysql -u root -e "CREATE DATABASE IF NOT EXISTS {{ include `tenant.databaseName` . }}; GRANT ALL PRIVILEGES ON {{ include `tenant.databaseName` . }}.* TO '{{ include `database.username` . }}'@'%'; FLUSH PRIVILEGES;"',
             ]
           env:
             - name: MYSQL_HOST
@@ -53,7 +53,7 @@ spec:
           env:
             - name: FINERACT_NODE_ID
               value: "1"
-            - name: FINERACT_HIKARI_DRIVER_CLASS_NAME
+            - name: FINERACT_HIKARI_DRIVER_SOURCE_CLASS_NAME
               value: {{ include "hikari.jdbcDriver" . | quote }}
             - name: FINERACT_HIKARI_JDBC_URL
               value: {{ include "hikari.jdbcUrl" . | quote }}
@@ -87,3 +87,21 @@ spec:
               value: {{ .Values.tenant.name }}
             - name: JAVA_TOOL_OPTIONS
               value: '-Xmx1G'
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8443
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 6
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8443
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 6

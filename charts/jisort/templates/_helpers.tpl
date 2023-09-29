@@ -52,14 +52,14 @@ Return Database Secret Key
 Return Hikari JDBC Driver
 */}}
 {{- define "hikari.jdbcDriver" -}}
-{{- printf "com.mysql.jdbc.Driver" -}}
+{{- printf "org.mariadb.jdbc.Driver" -}}
 {{- end -}}
 
 {{/*
 Return Hikari JDBC URL
 */}}
 {{- define "hikari.jdbcUrl" -}}
-{{- printf "jdbc:mysql://%s:%s/%s" (include "database.host" .) (include "database.port" .) .Values.mysql.auth.database -}}
+{{- printf "jdbc:mariadb://%s:%s/%s" (include "database.host" .) (include "database.port" .) .Values.mysql.auth.database -}}
 {{- end -}}
 
 {{/*

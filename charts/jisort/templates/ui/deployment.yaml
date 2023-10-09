@@ -27,7 +27,7 @@ spec:
             ]
       containers:
         - name: fw-{{ .Values.tenant.identifier }}
-          image: truehostcloud/mifos-community
+          image: truehostcloud/mifos-web-app
           resources: {{- toYaml .Values.client.resources | nindent 12 }}
           livenessProbe:
             httpGet:

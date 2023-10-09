@@ -84,7 +84,7 @@ spec:
             - name: FINERACT_DEFAULT_TENANTDB_TIMEZONE
               value: {{ .Values.tenant.timezone }}
             - name: FINERACT_DEFAULT_TENANTDB_IDENTIFIER
-              value: {{ .Values.tenant.identifier }}
+              value: 'default'
             - name: FINERACT_DEFAULT_TENANTDB_NAME
               value: {{ include "tenant.databaseName" . }}
             - name: FINERACT_DEFAULT_TENANTDB_DESCRIPTION

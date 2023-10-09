@@ -34,8 +34,6 @@ mysql:
 tenant:
   ## @param tenant.connectionParams Tenant connection parameters
   connectionParams: ""
-  ## @param tenant.identifier Tenant identifier
-  identifier: "default"
   ## @param tenant.name Tenant name
   name: "Default Tenant"
   ## @param tenant.timezone Tenant timezone

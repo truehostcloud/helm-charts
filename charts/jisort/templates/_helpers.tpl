@@ -66,8 +66,12 @@ Return Hikari JDBC URL
 Return Tenant Database Name
 */}}
 {{- define "tenant.databaseName" -}}
-{{- printf "fineract_%s" .Values.tenant.identifier -}}
+{{- printf "fineract_default" -}}
 {{- end -}}
+
+{{/*
+Return Server Protocol
+*/}}
 {{- define "server.protocol" -}}
 {{- if .Values.server.ssl.enabled -}}
 {{- printf "HTTPS" -}}
@@ -75,4 +79,3 @@ Return Tenant Database Name
 {{- printf "HTTP" -}}
 {{- end -}}
 {{- end -}}
-

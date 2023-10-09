@@ -17,7 +17,7 @@ spec:
         app.kubernetes.io/component: web
     spec:
       initContainers:
-        - name: check-{{ .Values.tenant.identifier }}-server
+        - name: check-server
           image: busybox:1.28
           command:
             [
@@ -26,8 +26,8 @@ spec:
               'echo -e "Checking the availability of Fineract server deployment"; while ! nc -z {{ include "common.names.fullname" . }}-server {{ .Values.server.port }}; do sleep 1; printf "-"; done; echo -e " >> Fineract server has started";',
             ]
       containers:
-        - name: fw-{{ .Values.tenant.identifier }}
-          image: truehostcloud/mifos-community
+        - name: fw-{{ include "common.names.fullname" . }}
+          image: truehostcloud/mifos-web-app
           resources: {{- toYaml .Values.client.resources | nindent 12 }}
           livenessProbe:
             httpGet:

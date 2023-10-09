@@ -17,7 +17,7 @@ spec:
         app.kubernetes.io/component: server
     spec:
       initContainers:
-        - name: check-{{ .Values.tenant.identifier }}-db
+        - name: check-db
           image: busybox:1.28
           command:
             [
@@ -25,7 +25,7 @@ spec:
               "-c",
               'echo -e "Checking for availability of MySQL server deployment"; while ! nc -z {{ include "database.host" . }} {{ include "database.port" . }}; do sleep 1; printf "-"; done; echo -e " >> MySQL server has started";',
             ]
-        - name: init-{{ .Values.tenant.identifier }}-db
+        - name: init-db
           image: litmuschaos/mysql-client:latest
           command:
             [
@@ -44,7 +44,7 @@ spec:
                   name: {{ include "database.secretName" . }}
                   key: {{ include "database.secretKeyRoot" . }}
       containers:
-        - name: fs-{{ .Values.tenant.identifier }}
+        - name: fs-{{ include "common.names.fullname" . }}
           image: truehostcloud/mifos-server
           resources: {{- toYaml .Values.server.resources | nindent 12 }}
           ports:
@@ -84,7 +84,7 @@ spec:
             - name: FINERACT_DEFAULT_TENANTDB_TIMEZONE
               value: {{ .Values.tenant.timezone }}
             - name: FINERACT_DEFAULT_TENANTDB_IDENTIFIER
-              value: {{ .Values.tenant.identifier }}
+              value: 'default'
             - name: FINERACT_DEFAULT_TENANTDB_NAME
               value: {{ include "tenant.databaseName" . }}
             - name: FINERACT_DEFAULT_TENANTDB_DESCRIPTION

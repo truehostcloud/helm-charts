@@ -45,7 +45,7 @@ spec:
                   key: {{ include "database.secretKeyRoot" . }}
       containers:
         - name: fs-{{ include "common.names.fullname" . }}
-          image: truehostcloud/mifos-server
+          image: "{{ .Values.server.image.name }}:{{ .Values.server.image.tag }}"
           resources: {{- toYaml .Values.server.resources | nindent 12 }}
           ports:
             - containerPort: {{ .Values.server.port }}

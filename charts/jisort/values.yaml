@@ -49,6 +49,8 @@ server:
   ssl:
     enabled: false
   port: 8080
+  image:
+    name: truehostcloud/mifos-server
   resources:
     limits: {}
     requests: {}

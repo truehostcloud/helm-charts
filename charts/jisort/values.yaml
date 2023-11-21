@@ -51,7 +51,7 @@ server:
   port: 8080
   image:
     name: truehostcloud/mifos-server
-    tag: 0.0.2
+    tag: 0.0.3
   resources:
     limits: {}
     requests: {}

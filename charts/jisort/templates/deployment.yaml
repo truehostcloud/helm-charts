@@ -16,6 +16,10 @@ spec:
       labels: {{- include "common.labels.standard" . | nindent 8 }}
         app.kubernetes.io/component: server
     spec:
+      volumes:
+        - name: fineract-data
+          persistentVolumeClaim:
+            claimName: {{ include "common.names.fullname" . }}-data
       initContainers:
         - name: check-db
           image: busybox:1.28
@@ -43,10 +47,24 @@ spec:
                 secretKeyRef:
                   name: {{ include "database.secretName" . }}
                   key: {{ include "database.secretKeyRoot" . }}
+        - name: volume-permissions
+          image: busybox
+          command:
+            - /bin/sh
+          args:
+            - '-c'
+            - chmod -R 755 /data && chown 1001:1001 /data
+          resources: { }
+          volumeMounts:
+            - name: fineract-data
+              mountPath: /data
       containers:
         - name: fs-{{ include "common.names.fullname" . }}
           image: "{{ .Values.server.image.name }}:{{ .Values.server.image.tag }}"
           resources: {{- toYaml .Values.server.resources | nindent 12 }}
+          volumeMounts:
+            - name: fineract-data
+              mountPath: /data
           ports:
             - containerPort: {{ .Values.server.port }}
               name: server
@@ -91,6 +109,8 @@ spec:
               value: {{ .Values.tenant.name }}
             - name: JAVA_TOOL_OPTIONS
               value: '-Xmx1G'
+            - name: FINERACT_CONTENT_FILESYSTEM_ROOT_FOLDER
+              value: /data
           startupProbe:
             httpGet:
               path: /fineract-provider/actuator/health/liveness
@@ -118,3 +138,6 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             failureThreshold: 6
+          securityContext:
+            runAsUser: 1001
+            runAsNonRoot: true

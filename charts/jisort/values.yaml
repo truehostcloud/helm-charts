@@ -50,8 +50,8 @@ server:
     enabled: false
   port: 8080
   image:
-    name: truehostcloud/mifos-server
-    tag: 0.0.2
+    name: truehostcloud/fineract
+    tag: 2fbe2870fbec51a7af2e246e936f7ef951de9091
   resources:
     limits: {}
     requests: {}

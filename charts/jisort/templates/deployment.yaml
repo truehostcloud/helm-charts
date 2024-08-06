@@ -111,6 +111,8 @@ spec:
               value: '-Xmx1G'
             - name: FINERACT_CONTENT_FILESYSTEM_ROOT_FOLDER
               value: /data
+            - name: FINERACT_PENTAHO_REPORTS_PATH
+              value: /app/pentahoReports
           startupProbe:
             httpGet:
               path: /fineract-provider/actuator/health/liveness

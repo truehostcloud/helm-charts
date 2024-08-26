@@ -51,7 +51,7 @@ server:
   port: 8080
   image:
     name: truehostcloud/fineract
-    tag: c9926d8683ac7b7ce332c88c624bcc7a53f310b1
+    tag: 8bb024e60e7c374911df850e1db7df2f8ed5ed37
   resources:
     limits: {}
     requests: {}

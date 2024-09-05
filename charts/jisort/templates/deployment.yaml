@@ -144,7 +144,7 @@ spec:
             runAsUser: 1001
             runAsNonRoot: true
         - name: fw-{{ include "common.names.fullname" . }}
-          image: truehostcloud/mifos-web-app
+          image: "{{ .Values.client.image.name }}:{{ .Values.client.image.tag }}"
           resources: {{- toYaml .Values.client.resources | nindent 12 }}
           livenessProbe:
             httpGet:

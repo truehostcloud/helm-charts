@@ -1,3 +1,7 @@
+global:
+  imageRegistry: ""
+  imagePullSecrets:
+    - docker-registry-secret
 ## MySQL chart configuration
 ## ref: https://github.com/bitnami/charts/blob/main/bitnami/mysql/values.yaml
 ##
@@ -64,6 +68,3 @@ client:
   image:
     name: truehostcloud/mifos-web-app
     tag: 23437ba0be9c41200da3649d514952130e35f7f7
-
-imagePullSecrets:
-  - docker-registry

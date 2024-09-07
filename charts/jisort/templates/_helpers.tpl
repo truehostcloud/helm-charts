@@ -79,3 +79,10 @@ Return Server Protocol
 {{- printf "HTTP" -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Return the proper Docker Image Registry Secret Names
+*/}}
+{{- define "jisort.imagePullSecrets" -}}
+{{- include "common.images.pullSecrets" (dict "images" (list .Values.client.image .Values.server.image) "global" .Values.global) -}}
+{{- end -}}

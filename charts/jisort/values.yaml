@@ -64,3 +64,6 @@ client:
   image:
     name: truehostcloud/mifos-web-app
     tag: 23437ba0be9c41200da3649d514952130e35f7f7
+
+imagePullSecrets:
+  - docker-registry

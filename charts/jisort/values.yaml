@@ -67,4 +67,4 @@ client:
     requests: {}
   image:
     name: truehostcloud/mifos-web-app
-    tag: 23437ba0be9c41200da3649d514952130e35f7f7
+    tag: c6d9f624af8b63d250ab78119cd327590947b8f2

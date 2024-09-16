@@ -61,6 +61,11 @@ mysql:
       port={{ .Values.primary.containerPorts.mysql }}
       socket=/opt/bitnami/mysql/tmp/mysql.sock
       pid-file=/opt/bitnami/mysql/tmp/mysqld.pid
+
+    containerPorts:
+      mysql: 3306
+      mysqlx: 33060
+
     resources:
       limits: {}
       requests: {}

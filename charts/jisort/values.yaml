@@ -66,9 +66,14 @@ mysql:
       mysql: 3306
       mysqlx: 33060
 
+    enableMySQLX: false
+
     resources:
       limits: {}
       requests: {}
+
+auth:
+  authenticationPolicy: ""
 
 ## Tenant configuration
 ##

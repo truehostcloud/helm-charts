@@ -111,3 +111,9 @@ client:
   image:
     name: truehostcloud/mifos-web-app
     tag: c6d9f624af8b63d250ab78119cd327590947b8f2
+
+elasticApm:
+  agentPath: /app/elastic-apm/elastic-apm-agent-1.52.1.jar
+  serverUrl: https://apm.jisort.com
+  environment: production
+

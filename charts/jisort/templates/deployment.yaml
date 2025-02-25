@@ -114,6 +114,17 @@ spec:
               value: /data
             - name: FINERACT_PENTAHO_REPORTS_PATH
               value: /app/pentahoReports
+            - name: ELASTIC_APM_AGENT_PATH
+              value: {{ .Values.elasticApm.agentPath }}
+            - name: ELASTIC_APM_SERVER_URL
+              value: {{ .Values.elasticApm.serverUrl }}
+            - name: ELASTIC_APM_SERVICE_NAME
+              value: {{ include "common.names.fullname" . }}
+            - name: ELASTIC_APM_ENVIRONMENT
+              value: {{ .Values.elasticApm.environment }}
+
+              
+            
           startupProbe:
             httpGet:
               path: /fineract-provider/actuator/health/liveness

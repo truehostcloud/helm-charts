@@ -179,3 +179,27 @@ spec:
           ports:
             - containerPort: 80
               name: web
+        - name: self-service-{{ include "common.names.fullname" . }}
+          image: "{{ .Values.selfService.image.name }}:{{ .Values.selfService.image.tag }}"
+          resources: {{- toYaml .Values.selfService.resources | nindent 12 }}
+          ports:
+            - containerPort: {{ .Values.selfService.port }}
+              name: self-service
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.selfService.port }}
+            initialDelaySeconds: {{ .Values.selfService.probes.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.selfService.probes.timeoutSeconds }}
+            periodSeconds: {{ .Values.selfService.probes.periodSeconds }}
+            successThreshold: {{ .Values.selfService.probes.successThreshold }}
+            failureThreshold: {{ .Values.selfService.probes.failureThreshold }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.selfService.port }}
+            initialDelaySeconds: {{ .Values.selfService.probes.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.selfService.probes.timeoutSeconds }}
+            periodSeconds: {{ .Values.selfService.probes.periodSeconds }}
+            successThreshold: {{ .Values.selfService.probes.successThreshold }}
+            failureThreshold: {{ .Values.selfService.probes.failureThreshold }}

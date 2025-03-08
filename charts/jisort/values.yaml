@@ -112,6 +112,22 @@ client:
     name: truehostcloud/mifos-web-app
     tag: c6d9f624af8b63d250ab78119cd327590947b8f2
 
+## Self Service configuration
+selfService:
+  resources:
+    limits: {}
+    requests: {}
+  image:
+    name: truehostcloud/mifos-self-service
+    tag: 846c44
+  port: 80
+  probes:
+    initialDelaySeconds: 5
+    timeoutSeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
+    failureThreshold: 6
+
 elasticApm:
   agentPath: /app/elastic-apm/elastic-apm-agent-1.52.1.jar
   serverUrl: https://apm.jisort.com

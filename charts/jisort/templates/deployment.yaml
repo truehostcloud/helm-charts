@@ -187,7 +187,7 @@ spec:
               name: self-service
           livenessProbe:
             httpGet:
-              path: /
+              path: {{ .Values.selfService.basePath }}/
               port: {{ .Values.selfService.port }}
             initialDelaySeconds: {{ .Values.selfService.probes.initialDelaySeconds }}
             timeoutSeconds: {{ .Values.selfService.probes.timeoutSeconds }}
@@ -196,7 +196,7 @@ spec:
             failureThreshold: {{ .Values.selfService.probes.failureThreshold }}
           readinessProbe:
             httpGet:
-              path: /
+              path: {{ .Values.selfService.basePath }}/
               port: {{ .Values.selfService.port }}
             initialDelaySeconds: {{ .Values.selfService.probes.initialDelaySeconds }}
             timeoutSeconds: {{ .Values.selfService.probes.timeoutSeconds }}

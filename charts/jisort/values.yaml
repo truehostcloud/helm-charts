@@ -119,8 +119,9 @@ selfService:
     requests: {}
   image:
     name: truehostcloud/mifos-self-service
-    tag: 846c44
+    tag: d4ee8e
   port: 80
+  basePath: /self-service
   probes:
     initialDelaySeconds: 5
     timeoutSeconds: 5

@@ -182,9 +182,6 @@ spec:
         - name: self-service-{{ include "common.names.fullname" . }}
           image: "{{ .Values.selfService.image.name }}:{{ .Values.selfService.image.tag }}"
           resources: {{- toYaml .Values.selfService.resources | nindent 12 }}
-          env:
-            - name: SERVER_NAME
-              value: {{ tpl .Values.ingress.hostname $ | quote }}
           ports:
             - containerPort: {{ .Values.selfService.port }}
               name: self-service

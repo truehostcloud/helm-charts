@@ -119,7 +119,7 @@ selfService:
     requests: {}
   image:
     name: truehostcloud/mifos-self-service
-    tag: d4ee8e
+    tag: d8f80a 
   port: 80
   basePath: /self-service
   probes:

@@ -182,12 +182,15 @@ spec:
         - name: self-service-{{ include "common.names.fullname" . }}
           image: "{{ .Values.selfService.image.name }}:{{ .Values.selfService.image.tag }}"
           resources: {{- toYaml .Values.selfService.resources | nindent 12 }}
+          env:
+            - name: SERVER_NAME
+              value: {{ tpl .Values.ingress.hostname $ | quote }}
           ports:
             - containerPort: {{ .Values.selfService.port }}
               name: self-service
           livenessProbe:
             httpGet:
-              path: /
+              path: {{ .Values.selfService.basePath }}/
               port: {{ .Values.selfService.port }}
             initialDelaySeconds: {{ .Values.selfService.probes.initialDelaySeconds }}
             timeoutSeconds: {{ .Values.selfService.probes.timeoutSeconds }}
@@ -196,7 +199,7 @@ spec:
             failureThreshold: {{ .Values.selfService.probes.failureThreshold }}
           readinessProbe:
             httpGet:
-              path: /
+              path: {{ .Values.selfService.basePath }}/
               port: {{ .Values.selfService.port }}
             initialDelaySeconds: {{ .Values.selfService.probes.initialDelaySeconds }}
             timeoutSeconds: {{ .Values.selfService.probes.timeoutSeconds }}

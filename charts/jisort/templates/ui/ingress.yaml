@@ -17,7 +17,6 @@ spec:
                 name: {{ include "common.names.fullname" . }}-web
                 port:
                   number: 80
-
           - path: /self-service
             pathType: ImplementationSpecific
             backend:
@@ -25,3 +24,4 @@ spec:
                 name: {{ include "common.names.fullname" . }}-self-service
                 port:
                   number: {{ .Values.selfService.port }}
+      

@@ -12,3 +12,7 @@ spec:
     - protocol: TCP
       port: 4200
       targetPort: 80
+
+    - protocol: TCP
+      port: {{ .Values.selfService.port }}
+      targetPort: {{ .Values.selfService.port }}

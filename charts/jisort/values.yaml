@@ -98,7 +98,7 @@ server:
   port: 8080
   image:
     name: truehostcloud/fineract
-    tag: e5a202
+    tag: 029c0e
   resources:
     limits: {}
     requests: {}
@@ -119,7 +119,7 @@ selfService:
     requests: {}
   image:
     name: truehostcloud/mifos-self-service
-    tag: 05450d 
+    tag: ee16b7 
   port: 8090
   basePath: /self-service
   probes:

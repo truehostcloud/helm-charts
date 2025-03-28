@@ -109,7 +109,13 @@ spec:
             - name: FINERACT_DEFAULT_TENANTDB_DESCRIPTION
               value: {{ .Values.tenant.name }}
             - name: JAVA_TOOL_OPTIONS
-              value: '-Xmx1G'
+              value: >-
+                -Xmx1G
+                {{- if .Values.elasticApm.agentPath }}
+                -javaagent:{{ .Values.elasticApm.agentPath }} 
+                -Delastic.apm.application_packages={{ .Values.elasticApm.applicationPackages }}
+                -Delastic.apm.trace_methods={{ .Values.elasticApm.traceMethods }}
+                {{- end }}
             - name: FINERACT_CONTENT_FILESYSTEM_ROOT_FOLDER
               value: /data
             - name: FINERACT_PENTAHO_REPORTS_PATH

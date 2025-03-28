@@ -98,7 +98,7 @@ server:
   port: 8080
   image:
     name: truehostcloud/fineract
-    tag: 029c0e
+    tag: c056c9 
   resources:
     limits: {}
     requests: {}
@@ -119,7 +119,7 @@ selfService:
     requests: {}
   image:
     name: truehostcloud/mifos-self-service
-    tag: ee16b7 
+    tag: e9aa9e 
   port: 8090
   basePath: /self-service
   probes:
@@ -133,4 +133,6 @@ elasticApm:
   agentPath: /app/elastic-apm/elastic-apm-agent-1.52.1.jar
   serverUrl: https://apm.jisort.com
   environment: production
+  applicationPackages: org.apache.fineract
+  traceMethods: org.apache.fineract.*,com.acme.fineract.*
 

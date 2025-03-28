@@ -133,4 +133,6 @@ elasticApm:
   agentPath: /app/elastic-apm/elastic-apm-agent-1.52.1.jar
   serverUrl: https://apm.jisort.com
   environment: production
+  applicationPackages: org.apache.fineract
+  traceMethods: org.apache.fineract.*,com.acme.fineract.*
 

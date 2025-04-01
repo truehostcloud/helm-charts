@@ -119,7 +119,7 @@ selfService:
     requests: {}
   image:
     name: truehostcloud/mifos-self-service
-    tag: cedebc
+    tag: 7c009c
   port: 8090
   basePath: /self-service
   probes:

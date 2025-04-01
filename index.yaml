@@ -2,6 +2,21 @@ apiVersion: v1
 entries:
   jisort:
   - apiVersion: v2
+    appVersion: 1.17.19
+    created: "2025-04-01T12:39:23.903432346Z"
+    dependencies:
+    - name: mysql
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 9.x.x
+    description: A Helm chart for Kubernetes
+    digest: 861737f9303902e20381d84f7e28492f249a59fbd33d67c9078809bca82784e2
+    icon: https://s3.jisort.com/media/images/jisort-logo-e1531592929446_l4TRLm1.png
+    name: jisort
+    type: application
+    urls:
+    - https://github.com/truehostcloud/helm-charts/releases/download/jisort-0.3.19/jisort-0.3.19.tgz
+    version: 0.3.19
+  - apiVersion: v2
     appVersion: 1.17.18
     created: "2025-04-01T11:42:15.995197657Z"
     dependencies:
@@ -584,4 +599,4 @@ entries:
     urls:
     - https://github.com/truehostcloud/helm-charts/releases/download/jisort-0.1.0/jisort-0.1.0.tgz
     version: 0.1.0
-generated: "2025-04-01T11:42:15.995485594Z"
+generated: "2025-04-01T12:39:23.903675399Z"

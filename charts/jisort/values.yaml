@@ -110,7 +110,7 @@ client:
     requests: {}
   image:
     name: truehostcloud/mifos-web-app
-    tag: 2d911e
+    tag: aecbae
 
 ## Self Service configuration
 selfService:

@@ -6,8 +6,6 @@ global:
 ## PVC configuration
 ##
 persistence:
-  enabled: true
-  storageClass: ""
   accessMode: ReadWriteOnce
   size: 1Gi
 

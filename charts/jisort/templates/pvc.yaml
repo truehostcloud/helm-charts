@@ -6,8 +6,11 @@ metadata:
   labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: data
 spec:
+  {{- if .Values.persistence.storageClass }}
+  storageClassName: {{ .Values.persistence.storageClass }}
+  {{- end }}
   accessModes:
-    - ReadWriteOnce
+    - {{ .Values.persistence.accessMode }}
   resources:
     requests:
-      storage: 1Gi
+      storage: {{ .Values.persistence.size }}

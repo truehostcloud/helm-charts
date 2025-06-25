@@ -121,6 +121,7 @@ client:
 
 ## Self Service configuration
 selfService:
+  enabled: true
   resources:
     limits: {}
     requests: {}

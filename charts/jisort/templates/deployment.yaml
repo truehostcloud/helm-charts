@@ -128,6 +128,8 @@ spec:
               value: {{ include "common.names.fullname" . }}
             - name: ELASTIC_APM_ENVIRONMENT
               value: {{ .Values.elasticApm.environment }}
+            - name: FINERACT_MODULE_SELF_SERVICE_ENABLED
+              value: {{ .Values.selfService.enabled | quote }}
 
               
             

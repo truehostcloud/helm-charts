@@ -166,6 +166,7 @@ spec:
         - name: fw-{{ include "common.names.fullname" . }}
           image: "{{ .Values.client.image.name }}:{{ .Values.client.image.tag }}"
           resources: {{- toYaml .Values.client.resources | nindent 12 }}
+          env: {{- toYaml .Values.client.env | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /

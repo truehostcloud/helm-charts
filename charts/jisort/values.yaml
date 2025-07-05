@@ -117,7 +117,10 @@ client:
     requests: {}
   image:
     name: truehostcloud/mifos-web-app
-    tag: aecbae
+    tag: c38058
+  env:
+    - name: PAYMENTS_GATEWAY_URL
+      value: "https://payments.jisort.com"
 
 ## Self Service configuration
 selfService:

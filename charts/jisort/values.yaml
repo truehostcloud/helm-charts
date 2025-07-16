@@ -105,7 +105,7 @@ server:
   port: 8080
   image:
     name: truehostcloud/fineract
-    tag: e4bc76
+    tag: 63ee17
   resources:
     limits: {}
     requests: {}
@@ -117,7 +117,7 @@ client:
     requests: {}
   image:
     name: truehostcloud/mifos-web-app
-    tag: 64581d
+    tag: 56e5e8
   env:
     - name: PAYMENTS_GATEWAY_URL
       value: "https://payments.jisort.com"
